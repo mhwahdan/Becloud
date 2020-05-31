@@ -1,0 +1,30 @@
+<div class="col-3 overflow-auto" style="height:90vh;">
+      <div class="container overflow-auto">
+        <div class="dropdown-divider"></div>
+          <input class="form-control" id="12112003" type="text" placeholder="filter contacts" style="width:80%;margin:auto;" size="25" onkeyup="filtercontacts(this.value,'contacts',this.id)"/>
+        <div style="width:100%;" class="overflow-auto container" id="contacts">
+    <?php
+
+    $query = "SELECT * FROM `contracts` WHERE user_id = '$userid'";
+    $result = mysqli_query($conn, $query) or die("connection falied".mysqli_error($conn));
+    while ($row = mysqli_fetch_row($result))
+    {
+    $titi = $row[2];
+    $query1 = "SELECT * FROM `contracts` WHERE company_id = '$titi' AND user_id != '$userid'";
+    $result1 = mysqli_query($conn, $query1) or die("connection falied".mysqli_error($conn));
+    while ($row1 = mysqli_fetch_row($result1))
+    {
+      $idd = $row1[1];
+      $query2 = "SELECT * FROM users WHERE user_id = '$idd'";
+      $result2 = mysqli_query($conn, $query2) or die("connection falied".mysqli_error($conn));
+      $row2 = mysqli_fetch_row($result2);
+    echo '<div class="row" style="margin:auto;" >';
+    echo '<label>Name: <span id="user_name">'.$row2[1].'</span><br>Email: '.$row2[2].'<br>Profession: '.$row2[4].'</label>';
+    echo "</div>";
+    echo '<div class="dropdown-divider"></div>';
+    }
+    }
+    ?>
+      </div>
+    </div>
+    </div>
